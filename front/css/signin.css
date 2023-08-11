@@ -1,0 +1,47 @@
+main {
+  position: relative;
+}
+
+.signin-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.signin-container h1 {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+}
+
+.signin-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.signin-form input {
+  font-size: 1.4rem;
+  padding: .5rem 1rem;
+  max-width: 40rem;
+  border: 1px solid #ccc;
+  border-radius: .3rem;
+}
+
+#signin {
+  background-color: var(--plum);
+  border: var(--text-purple);
+  color: #fff;
+  cursor: pointer;
+  padding: .8rem;
+}
+
+#signin:hover {
+  background-color: var(--text-purple);
+  transition: all .2s;
+}
+
+#signup {
+  font-size: 1.4rem;
+}
