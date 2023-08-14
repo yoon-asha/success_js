@@ -51,7 +51,7 @@ async function readTodo() {
       sectionUl.innerHTML = result
     }
   } catch (err) {
-    console.error('##### Error #####', err)
+    console.log('##### Error #####', err)
   }
 }
 
@@ -131,7 +131,7 @@ async function createTodo(event, token) {
     event.target.value = ''
     return true
   } catch (err) {
-    console.error(err)
+    console.log(err)
     return false
   }
 }
@@ -159,7 +159,7 @@ async function updateDone(event, token) {
     // DOM 업데이트
     readTodo()
   } catch (err) {
-    console.error(err)
+    console.log(err)
     return false
   }
 }
@@ -187,7 +187,7 @@ async function updateContents(event, token) {
     // DOM 업데이트
     readTodo()
   } catch (err) {
-    console.error(err)
+    console.log(err)
     return false
   }
 }
@@ -213,7 +213,7 @@ async function deleteTodo(event, token) {
     // DOM 업데이트
     readTodo()
   } catch (err) {
-    console.error(err)
+    console.log(err)
     return false
   }
 }
