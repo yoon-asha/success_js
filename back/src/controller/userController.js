@@ -40,23 +40,31 @@ exports.signup = async (req, res) => {
   }
 
   // 중복 회원 검사
-  const isDuplicate = await userDatabase.selectUserEmail(email)
-  if (isDuplicate.length > 0) {
-    return res.send({
-      isSuccess: false,
-      code: 400,
-      message: '중복된 이메일 입니다.',
-    })
+  try {
+    const isDuplicate = await userDatabase.selectUserEmail(email)
+    if (isDuplicate.length > 0) {
+      return res.send({
+        isSuccess: false,
+        code: 400,
+        message: '중복된 이메일 입니다.',
+      })
+    }
+  } catch (err) {
+    console.log('중복 회원 검사 에러 ', err)
   }
 
   // DB 입력
-  const insertUser = await userDatabase.insertUser(email, password, nickname)
-  if (!insertUser) {
-    return res.send({
-      isSuccess: false,
-      code: 400,
-      message: '회원가입 실패. 관리자에게 문의해 주세요.',
-    })
+  try {
+    const insertUser = await userDatabase.insertUser(email, password, nickname)
+    if (!insertUser) {
+      return res.send({
+        isSuccess: false,
+        code: 400,
+        message: '회원가입 실패. 관리자에게 문의해 주세요.',
+      })
+    }
+  } catch (err) {
+    console.log('회원가입 에러 ', err)
   }
 
   return res.send({
@@ -77,21 +85,25 @@ exports.signin = async (req, res) => {
   }
 
   // 회원 여부 검사
-  const isValidUser = await userDatabase.selectUser(email, password)
-  if (!isValidUser) {
-    return res.send({
-      isSuccess: false,
-      code: 400,
-      message: 'DB 에러. 관리자에게 문의해 주세요.',
-    })
-  }
+  try {
+    const isValidUser = await userDatabase.selectUser(email, password)
+    if (!isValidUser) {
+      return res.send({
+        isSuccess: false,
+        code: 400,
+        message: 'DB 에러. 관리자에게 문의해 주세요.',
+      })
+    }
 
-  if (isValidUser.length < 1) {
-    return res.send({
-      isSuccess: false,
-      code: 400,
-      message: '존재하지 않는 회원입니다.',
-    })
+    if (isValidUser.length < 1) {
+      return res.send({
+        isSuccess: false,
+        code: 400,
+        message: '존재하지 않는 회원입니다.',
+      })
+    }
+  } catch (err) {
+    console.log('회원 검사 에러 ', err)
   }
 
   // jwt 토큰 발급
@@ -110,14 +122,18 @@ exports.signin = async (req, res) => {
 }
 
 exports.getNickname = async (req, res) => {
-  const { userIdx } = req.verifiedToken
-  const [userInfo] = await userDatabase.selectNickname(userIdx)
-  const nickname = userInfo.nickname
+  try {
+    const { userIdx } = req.verifiedToken
+    const [userInfo] = await userDatabase.selectNickname(userIdx)
+    const nickname = userInfo.nickname
 
-  return res.send({
-    result: { nickname },
-    isSuccess: true,
-    code: 200,
-    message: '토큰 검증 완료',
-  })
+    return res.send({
+      result: { nickname },
+      isSuccess: true,
+      code: 200,
+      message: '토큰 검증 완료',
+    })
+  } catch (err) {
+    console.log('닉네임 에러 ', err)
+  }
 }

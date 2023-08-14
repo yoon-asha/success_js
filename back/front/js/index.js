@@ -18,18 +18,22 @@ async function setHeader() {
     },
   }
 
-  const res = await axios(config)
-  if (res.data.code !== 200) {
-    console.log('잘못된 토큰입니다.')
-    return
-  }
-  const nickname = res.data.result.nickname
-  const spanNickname = document.querySelector('span.nickname')
-  spanNickname.innerText = nickname
+  try {
+    const res = await axios(config)
+    if (res.data.code !== 200) {
+      console.log('잘못된 토큰입니다.')
+      return
+    }
+    const nickname = res.data.result.nickname
+    const spanNickname = document.querySelector('span.nickname')
+    spanNickname.innerText = nickname
 
-  // 토큰이 있으면 unsigned에 hidden
-  const unsigned = document.querySelector('.unsigned')
-  unsigned.classList.add('hidden')
+    // 토큰이 있으면 unsigned에 hidden
+    const unsigned = document.querySelector('.unsigned')
+    unsigned.classList.add('hidden')
+  } catch (err) {
+    console.log('token Error  ', err)
+  }
 }
 
 // 로그아웃

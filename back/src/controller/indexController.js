@@ -32,22 +32,26 @@ exports.createTodo = async (req, res) => {
     })
   }
 
-  const insertTodoRow = await indexDatabase.insertTodo(userIdx, contents, type)
+  try {
+    const insertTodoRow = await indexDatabase.insertTodo(userIdx, contents, type)
 
-  if (!insertTodoRow) {
+    if (!insertTodoRow) {
+      return res.send({
+        isSuccess: false,
+        code: 403,
+        message: '요청에 실패했습니다. 관리자에게 문의해주세요.',
+      })
+    }
+
     return res.send({
-      isSuccess: false,
-      code: 403,
-      message: '요청에 실패했습니다. 관리자에게 문의해주세요.',
+      result: { userIdx, contents, type },
+      isSuccess: true,
+      code: 200,
+      message: '일정 추가 성공',
     })
+  } catch (err) {
+    console.log('create Todo Error : ', err)
   }
-
-  return res.send({
-    result: { userIdx, contents, type },
-    isSuccess: true,
-    code: 200,
-    message: '일정 추가 성공',
-  })
 }
 
 exports.readTodo = async (req, res) => {
@@ -56,18 +60,22 @@ exports.readTodo = async (req, res) => {
   const todos = {}
   const types = ['do', 'deem', 'downy', 'defer']
 
-  for (let type of types) {
-    let selectTodoByType = await indexDatabase.selectTodoByType(userIdx, type)
+  try {
+    for (let type of types) {
+      let selectTodoByType = await indexDatabase.selectTodoByType(userIdx, type)
 
-    if (!selectTodoByType) {
-      return res.send({
-        isSuccess: false,
-        code: 400,
-        message: '일정 조회에 실패했습니다. 관리자에게 문의해주세요.',
-      })
+      if (!selectTodoByType) {
+        return res.send({
+          isSuccess: false,
+          code: 400,
+          message: '일정 조회에 실패했습니다. 관리자에게 문의해주세요.',
+        })
+      }
+
+      todos[type] = selectTodoByType
     }
-
-    todos[type] = selectTodoByType
+  } catch (err) {
+    console.log('read Todo Error : ', err)
   }
 
   return res.send({
@@ -94,24 +102,32 @@ exports.updateTodo = async (req, res) => {
 
   if (!status) status = null
 
-  const isValidTodo = await indexDatabase.selectValidTodo(userIdx, todoIdx)
+  try {
+    const isValidTodo = await indexDatabase.selectValidTodo(userIdx, todoIdx)
 
-  if (isValidTodo.length < 1) {
-    return res.send({
-      isSuccess: false,
-      code: 400,
-      message: '유효한 요청이 아닙니다. userIdx와 todoIdx를 확인하세요.',
-    })
+    if (isValidTodo.length < 1) {
+      return res.send({
+        isSuccess: false,
+        code: 400,
+        message: '유효한 요청이 아닙니다. userIdx와 todoIdx를 확인하세요.',
+      })
+    }
+  } catch (err) {
+    console.log('update Todo valid Error : ', err)
   }
 
-  const updateTodo = await indexDatabase.updateTodo(userIdx, todoIdx, contents, status)
+  try {
+    const updateTodo = await indexDatabase.updateTodo(userIdx, todoIdx, contents, status)
 
-  if (!updateTodo) {
-    return res.send({
-      isSuccess: false,
-      code: 400,
-      message: '수정 실패. 관리자에게 문의해주세요.',
-    })
+    if (!updateTodo) {
+      return res.send({
+        isSuccess: false,
+        code: 400,
+        message: '수정 실패. 관리자에게 문의해주세요.',
+      })
+    }
+  } catch (err) {
+    console.log('update Todo DB Error : ', err)
   }
 
   return res.send({
@@ -133,24 +149,32 @@ exports.deleteTodo = async (req, res) => {
     })
   }
 
-  const isValidTodo = await indexDatabase.selectValidTodo(userIdx, todoIdx)
+  try {
+    const isValidTodo = await indexDatabase.selectValidTodo(userIdx, todoIdx)
 
-  if (isValidTodo.length < 1) {
-    return res.send({
-      isSuccess: false,
-      code: 400,
-      message: '유효한 요청이 아닙니다. userIdx와 todoIdx를 확인하세요.',
-    })
+    if (isValidTodo.length < 1) {
+      return res.send({
+        isSuccess: false,
+        code: 400,
+        message: '유효한 요청이 아닙니다. userIdx와 todoIdx를 확인하세요.',
+      })
+    }
+  } catch (err) {
+    console.log('delete Todo valid Error : ', err)
   }
 
-  const deleteTodo = await indexDatabase.deleteTodo(userIdx, todoIdx)
+  try {
+    const deleteTodo = await indexDatabase.deleteTodo(userIdx, todoIdx)
 
-  if (!deleteTodo) {
-    return res.send({
-      isSuccess: false,
-      code: 400,
-      message: '삭제 실패. 관리자에게 문의해주세요.',
-    })
+    if (!deleteTodo) {
+      return res.send({
+        isSuccess: false,
+        code: 400,
+        message: '삭제 실패. 관리자에게 문의해주세요.',
+      })
+    }
+  } catch (err) {
+    console.log('delete Todo DB Error : ', err)
   }
 
   return res.send({
