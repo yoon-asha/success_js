@@ -64,6 +64,7 @@ function cudContoller(event) {
   const token = localStorage.getItem('x-access-token')
   if (!token) {
     alert('로그인 후 이용해 주세요.')
+    location.href = 'signin.html'
     return
   }
   const target = event.target

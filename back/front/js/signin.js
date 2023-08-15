@@ -13,36 +13,38 @@ signinBtn.addEventListener('click', signin)
 
 // 로그인 처리
 async function signin() {
-  const currentEmail = inputEmail.value
-  const currentPassword = inputPassword.value
+  const email = inputEmail.value
+  const password = inputPassword.value
 
-  if (!currentEmail || !currentPassword) return false
+  if (!email || !password) return false
 
   // 로그인 API 요청
   const config = {
     method: 'post',
     url: url + '/sign-in',
     data: {
-      email: currentEmail,
-      password: currentPassword,
+      email,
+      password,
     },
   }
 
   try {
     const res = await axios(config)
-    console.log(res)
+    console.log('res', config, res)
+    console.log('>>>>>??? ', axios(config))
 
     if (res.data.code !== 200) {
       alert(res.data.message)
       return false
     }
 
-    localStorage.setItem('x-access-token', res.data.result.token)
-    alert(res.data.message)
-    location.href = 'index.html'
-    return true
+    if (res.data.code === 200) {
+      localStorage.setItem('x-access-token', res.data.result.token)
+      alert(res.data.message)
+      location.href = 'index.html'
+      return true
+    }
   } catch (err) {
-    console.log(err)
-    return false
+    console.log('#### sign in Error #### ', err)
   }
 }

@@ -104,7 +104,6 @@ async function signup() {
 
   try {
     const res = await axios(config)
-    console.log(res)
     if (res.data.code === 400) {
       alert(res.data.message)
       location.reload()
