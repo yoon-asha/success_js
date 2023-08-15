@@ -74,7 +74,6 @@ exports.signup = async (req, res) => {
   })
 }
 
-console.log('>>>>>  ', 'sdafdfaff')
 exports.signin = async (req, res) => {
   console.log('>>>>>  ', req, res, req.body)
 
