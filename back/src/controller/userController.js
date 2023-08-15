@@ -60,6 +60,8 @@ exports.signup = async (req, res) => {
   // DB 입력
   try {
     const insertUser = await userDatabase.insertUser(email, password, nickname)
+    console.log('insertUser', insertUser)
+
     if (!insertUser) {
       return res.send({
         isSuccess: false,
@@ -67,15 +69,14 @@ exports.signup = async (req, res) => {
         message: '회원가입 실패. 관리자에게 문의해 주세요.',
       })
     }
+    return res.send({
+      isSuccess: true,
+      code: 200,
+      message: '회원가입 성공',
+    })
   } catch (err) {
     console.log('회원가입 에러 ', err)
   }
-
-  return res.send({
-    isSuccess: true,
-    code: 200,
-    message: '회원가입 성공',
-  })
 }
 
 exports.signin = async (req, res) => {
