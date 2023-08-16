@@ -98,30 +98,29 @@ exports.signin = async (req, res) => {
 
     if (isValidUser.length < 1) {
       console.log(isValidUser, email, password)
-
-      // return res.send({
-      //   isSuccess: false,
-      //   code: 400,
-      //   message: '존재하지 않는 회원입니다.',
-      // })
+      return res.send({
+        isSuccess: false,
+        code: 400,
+        message: `${(isValidUser, email, password)} : 존재하지 않는 회원입니다.`,
+      })
     }
   } catch (err) {
     console.error('회원 검사 에러 ', err)
   }
 
-  // jwt 토큰 발급
-  const [userInfo] = isValidUser
-  const token = jwt.sign(
-    { userIdx: userInfo.userIdx }, // 페이로드
-    jwtSecret // 시크릿 키
-  )
+  // // jwt 토큰 발급
+  // const [userInfo] = isValidUser
+  // const token = jwt.sign(
+  //   { userIdx: userInfo.userIdx }, // 페이로드
+  //   jwtSecret // 시크릿 키
+  // )
 
-  return res.send({
-    result: { token },
-    isSuccess: true,
-    code: 200,
-    message: '로그인 성공',
-  })
+  // return res.send({
+  //   result: { token },
+  //   isSuccess: true,
+  //   code: 200,
+  //   message: '로그인 성공',
+  // })
 }
 
 exports.getNickname = async (req, res) => {
