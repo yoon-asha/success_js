@@ -34,17 +34,15 @@ async function signin() {
     console.log('res  ', res)
 
     if (res.data.code !== 200) {
-      // alert(res.data.message)
-      console.log(res.data.message)
-      // location.reload()
+      alert(res.data.message)
+      location.reload()
       return false
     }
 
     if (res.data.code === 200) {
       console.log(res)
-
-      // localStorage.setItem('x-access-token', res.data.result.token)
-      alert(res.data.message)
+      localStorage.setItem('x-access-token', res.data.result.token)
+      alert(res.data.message, res.data.result.token)
       // location.href = 'index.html'
       return true
     }
