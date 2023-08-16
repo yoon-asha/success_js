@@ -87,7 +87,7 @@ exports.signin = async (req, res) => {
   }
 
   // 회원여부 검사
-  const isValidUser = await userDao.selectUser(email, password)
+  const isValidUser = await userDatabase.selectUser(email, password)
   if (!isValidUser) {
     return res.send({
       isSuccess: false,
