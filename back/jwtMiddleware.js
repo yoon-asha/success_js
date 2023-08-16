@@ -2,6 +2,8 @@ const jwt = require('jsonwebtoken')
 const { jwtSecret } = require('./secret')
 
 exports.jwtMiddleware = async function (req, res, next) {
+  console.log('jwt req ', req)
+
   // 헤더에서 토큰 꺼내기
   const token = req.headers['x-access-token']
   // 토큰이 없는 경우

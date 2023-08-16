@@ -51,7 +51,7 @@ exports.signup = async (req, res) => {
       })
     }
   } catch (err) {
-    console.log('중복 회원 검사 에러 ', err)
+    console.error('중복 회원 검사 에러 ', err)
   }
 
   // DB 입력
@@ -71,7 +71,7 @@ exports.signup = async (req, res) => {
       message: '회원가입 성공',
     })
   } catch (err) {
-    console.log('회원가입 에러 ', err)
+    console.error('회원가입 에러 ', err)
   }
 }
 
@@ -85,9 +85,13 @@ exports.signin = async (req, res) => {
     })
   }
 
+  console.log('email', email, password)
+
   // 회원 여부 검사
   try {
     const isValidUser = await userDatabase.selectUser(email, password)
+    console.log('isValidUser', isValidUser)
+
     if (!isValidUser) {
       return res.send({
         isSuccess: false,
@@ -97,6 +101,8 @@ exports.signin = async (req, res) => {
     }
 
     if (isValidUser.length < 1) {
+      console.log(isValidUser)
+
       return res.send({
         isSuccess: false,
         code: 400,
@@ -135,6 +141,6 @@ exports.getNickname = async (req, res) => {
       message: '토큰 검증 완료',
     })
   } catch (err) {
-    console.log('닉네임 에러 ', err)
+    console.error('닉네임 에러 ', err)
   }
 }

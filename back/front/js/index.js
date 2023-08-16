@@ -21,7 +21,7 @@ async function setHeader() {
   try {
     const res = await axios(config)
     if (res.data.code !== 200) {
-      console.log('잘못된 토큰입니다.')
+      console.error('잘못된 토큰입니다.')
       return
     }
     const nickname = res.data.result.nickname
@@ -32,7 +32,7 @@ async function setHeader() {
     const unsigned = document.querySelector('.unsigned')
     unsigned.classList.add('hidden')
   } catch (err) {
-    console.log('token Error  ', err)
+    console.error('token Error  ', err)
   }
 }
 

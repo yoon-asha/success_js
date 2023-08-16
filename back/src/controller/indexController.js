@@ -50,7 +50,7 @@ exports.createTodo = async (req, res) => {
       message: '일정 추가 성공',
     })
   } catch (err) {
-    console.log('create Todo Error : ', err)
+    console.error('create Todo Error : ', err)
   }
 }
 
@@ -75,7 +75,7 @@ exports.readTodo = async (req, res) => {
       todos[type] = selectTodoByType
     }
   } catch (err) {
-    console.log('read Todo Error : ', err)
+    console.error('read Todo Error : ', err)
   }
 
   return res.send({
@@ -113,7 +113,7 @@ exports.updateTodo = async (req, res) => {
       })
     }
   } catch (err) {
-    console.log('update Todo valid Error : ', err)
+    console.error('update Todo valid Error : ', err)
   }
 
   try {
@@ -127,7 +127,7 @@ exports.updateTodo = async (req, res) => {
       })
     }
   } catch (err) {
-    console.log('update Todo DB Error : ', err)
+    console.error('update Todo DB Error : ', err)
   }
 
   return res.send({
@@ -160,7 +160,7 @@ exports.deleteTodo = async (req, res) => {
       })
     }
   } catch (err) {
-    console.log('delete Todo valid Error : ', err)
+    console.error('delete Todo valid Error : ', err)
   }
 
   try {
@@ -174,7 +174,7 @@ exports.deleteTodo = async (req, res) => {
       })
     }
   } catch (err) {
-    console.log('delete Todo DB Error : ', err)
+    console.error('delete Todo DB Error : ', err)
   }
 
   return res.send({

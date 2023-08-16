@@ -10,14 +10,14 @@ exports.getUserRows = async () => {
       const [row] = await connection.query(selectUserQuery)
       return row
     } catch (err) {
-      console.log(` ##### getUserRows DB error #####`)
+      console.error(` ##### getUserRows DB error #####`)
       return false
     } finally {
       // db 과부화 되지 않게 연결 다시 끊어주기
       connection.release()
     }
   } catch (err) {
-    console.log(` ##### getUserRows DB error #####`)
+    console.error(` ##### getUserRows DB error #####`)
     return false
   }
 }
@@ -35,14 +35,14 @@ exports.insertTodo = async (userIdx, contents, type) => {
       const [row] = await connection.query(insertTodoQuery, insertTodoParams)
       return row
     } catch (err) {
-      console.log(` ##### insertTodo DB error ##### \n ${err}`)
+      console.error(` ##### insertTodo DB error ##### \n ${err}`)
       return false
     } finally {
       // db 과부화 되지 않게 연결 다시 끊어주기
       connection.release()
     }
   } catch (err) {
-    console.log(` ##### insertTodo DB error ##### \n ${err}`)
+    console.error(` ##### insertTodo DB error ##### \n ${err}`)
     return false
   }
 }
@@ -61,14 +61,14 @@ exports.selectTodoByType = async (userIdx, type) => {
 
       return row
     } catch (err) {
-      console.log(` ##### selectTodoByType DB error ##### \n ${err}`)
+      console.error(` ##### selectTodoByType DB error ##### \n ${err}`)
       return false
     } finally {
       // db 과부화 되지 않게 연결 다시 끊어주기
       connection.release()
     }
   } catch (err) {
-    console.log(` ##### selectTodoByType DB error ##### \n ${err}`)
+    console.error(` ##### selectTodoByType DB error ##### \n ${err}`)
     return false
   }
 }
@@ -85,14 +85,14 @@ exports.selectValidTodo = async (userIdx, todoIdx) => {
       const [row] = await connection.query(selectValidTodoQuery, selectValidTodoParams)
       return row
     } catch (err) {
-      console.log(` ##### selectValidTodo DB error ##### \n ${err}`)
+      console.error(` ##### selectValidTodo DB error ##### \n ${err}`)
       return false
     } finally {
       // db 과부화 되지 않게 연결 다시 끊어주기
       connection.release()
     }
   } catch (err) {
-    console.log(` ##### selectValidTodo DB error ##### \n ${err}`)
+    console.error(` ##### selectValidTodo DB error ##### \n ${err}`)
     return false
   }
 }
@@ -111,14 +111,14 @@ exports.updateTodo = async (userIdx, todoIdx, contents, status) => {
       const [row] = await connection.query(updateTodoQuery, updateTodoParams)
       return row
     } catch (err) {
-      console.log(` ##### updateTodo DB error ##### \n ${err}`)
+      console.error(` ##### updateTodo DB error ##### \n ${err}`)
       return false
     } finally {
       // db 과부화 되지 않게 연결 다시 끊어주기
       connection.release()
     }
   } catch (err) {
-    console.log(` ##### updateTodo DB error ##### \n ${err}`)
+    console.error(` ##### updateTodo DB error ##### \n ${err}`)
     return false
   }
 }
@@ -136,14 +136,14 @@ exports.deleteTodo = async (userIdx, todoIdx) => {
       const [row] = await connection.query(deleteTodoQuery, deleteTodoParams)
       return row
     } catch (err) {
-      console.log(` ##### deleteTodo DB error ##### \n ${err}`)
+      console.error(` ##### deleteTodo DB error ##### \n ${err}`)
       return false
     } finally {
       // db 과부화 되지 않게 연결 다시 끊어주기
       connection.release()
     }
   } catch (err) {
-    console.log(` ##### deleteTodo DB error ##### \n ${err}`)
+    console.error(` ##### deleteTodo DB error ##### \n ${err}`)
     return false
   }
 }

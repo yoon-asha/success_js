@@ -13,14 +13,14 @@ exports.insertUser = async (email, password, nickname) => {
       const [row] = await connection.query(insertUserQuery, insertUserParams)
       return row
     } catch (err) {
-      console.log(` ##### insertUse DB error ##### \n ${err}`)
+      console.error(` ##### insertUse DB error ##### \n ${err}`)
       return false
     } finally {
       // db 과부화 되지 않게 연결 다시 끊어주기
       connection.release()
     }
   } catch (err) {
-    console.log(` ##### insertUse DB error ##### \n ${err}`)
+    console.error(` ##### insertUse DB error ##### \n ${err}`)
     return false
   }
 }
@@ -38,14 +38,14 @@ exports.selectUserEmail = async (email) => {
       const [row] = await connection.query(selectEmailQuery, selectEmailParams)
       return row
     } catch (err) {
-      console.log(` ##### selectEmail DB error ##### \n ${err}`)
+      console.error(` ##### selectEmail DB error ##### \n ${err}`)
       return false
     } finally {
       // db 과부화 되지 않게 연결 다시 끊어주기
       connection.release()
     }
   } catch (err) {
-    console.log(` ##### selectEmail DB error ##### \n ${err}`)
+    console.error(` ##### selectEmail DB error ##### \n ${err}`)
     return false
   }
 }
@@ -63,14 +63,14 @@ exports.selectUser = async (email, password) => {
       const [row] = await connection.query(selectUserQuery, selectUserParams)
       return row
     } catch (err) {
-      console.log(` ##### selectUser DB error ##### \n ${err}`)
+      console.error(` ##### selectUser DB error ##### \n ${err}`)
       return false
     } finally {
       // db 과부화 되지 않게 연결 다시 끊어주기
       connection.release()
     }
   } catch (err) {
-    console.log(` ##### selectUser DB error ##### \n ${err}`)
+    console.error(` ##### selectUser DB error ##### \n ${err}`)
     return false
   }
 }
@@ -88,14 +88,14 @@ exports.selectNickname = async (userIdx) => {
       const [row] = await connection.query(selectNicknameQuery, selectNicknameParams)
       return row
     } catch (err) {
-      console.log(` ##### selectNickname DB error ##### \n ${err}`)
+      console.error(` ##### selectNickname DB error ##### \n ${err}`)
       return false
     } finally {
       // db 과부화 되지 않게 연결 다시 끊어주기
       connection.release()
     }
   } catch (err) {
-    console.log(` ##### selectNickname DB error ##### \n ${err}`)
+    console.error(` ##### selectNickname DB error ##### \n ${err}`)
     return false
   }
 }

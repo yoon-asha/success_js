@@ -30,5 +30,5 @@ indexRouter(app)
 userRouter(app)
 
 app.listen(port, () => {
-  console.log(`Express app listening at port: ${port}`)
+  console.error(`Express app listening at port: ${port}`)
 })
