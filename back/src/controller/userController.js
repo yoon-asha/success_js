@@ -1,6 +1,6 @@
 const userDatabase = require('../database/userDatabase')
 const jwt = require('jsonwebtoken')
-const { jwtSecret } = require('../../secret')
+const { jwtSecret } = require('../../secret.js')
 
 exports.signup = async (req, res) => {
   const { email, password, nickname } = req.body
@@ -104,7 +104,7 @@ exports.signin = async (req, res) => {
       })
     }
   } catch (err) {
-    console.log('회원 검사 에러 ', err)
+    console.error('회원 검사 에러 ', err)
   }
 
   // jwt 토큰 발급

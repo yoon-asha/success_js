@@ -44,6 +44,6 @@ async function signin() {
       return true
     }
   } catch (err) {
-    console.log('#### sign in Error #### ', err)
+    console.error('#### sign in Error #### ', err)
   }
 }
