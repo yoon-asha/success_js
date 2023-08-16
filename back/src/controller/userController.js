@@ -99,11 +99,11 @@ exports.signin = async (req, res) => {
     if (isValidUser.length < 1) {
       console.log(isValidUser, email, password)
 
-      return res.send({
-        isSuccess: false,
-        code: 400,
-        message: '존재하지 않는 회원입니다.',
-      })
+      // return res.send({
+      //   isSuccess: false,
+      //   code: 400,
+      //   message: '존재하지 않는 회원입니다.',
+      // })
     }
   } catch (err) {
     console.error('회원 검사 에러 ', err)
