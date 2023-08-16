@@ -97,6 +97,8 @@ exports.signin = async (req, res) => {
     }
 
     if (isValidUser.length < 1) {
+      console.log(isValidUser, email, password)
+
       return res.send({
         isSuccess: false,
         code: 400,
