@@ -21,7 +21,7 @@ async function signin() {
   // 로그인 API 요청
   const config = {
     method: 'post',
-    url: url + '/sign-in',
+    url: url + '/signin',
     data: {
       email,
       password,
