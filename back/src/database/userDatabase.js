@@ -1,16 +1,16 @@
 const { pool } = require('../../database.js')
 
-exports.insertUser = async (email, password, nickname) => {
+exports.insertUser = async function (email, password, nickname) {
   // DB 연결 검사
   try {
     const connection = await pool.getConnection(async (conn) => conn)
 
-    // insert query
+    // insert execute
     try {
-      const insertUserQuery = 'insert into Users (email, password, nickname) values (?, ?, ?);'
+      const insertUserexecute = 'insert into Users (email, password, nickname) values (?, ?, ?);'
       const insertUserParams = [email, password, nickname]
 
-      const [row] = await connection.query(insertUserQuery, insertUserParams)
+      const [row] = await connection.execute(insertUserexecute, insertUserParams)
       return row
     } catch (err) {
       console.error(` ##### insertUse DB error ##### \n ${err}`)
@@ -25,17 +25,17 @@ exports.insertUser = async (email, password, nickname) => {
   }
 }
 
-exports.selectUserEmail = async (email) => {
+exports.selectUserEmail = async function (email) {
   // DB 연결 검사
   try {
     const connection = await pool.getConnection(async (conn) => conn)
 
-    // insert query
+    // insert execute
     try {
-      const selectEmailQuery = 'select * from Users where email = ?;'
+      const selectEmailexecute = 'select * from Users where email = ?;'
       const selectEmailParams = [email]
 
-      const [row] = await connection.query(selectEmailQuery, selectEmailParams)
+      const [row] = await connection.execute(selectEmailexecute, selectEmailParams)
       return row
     } catch (err) {
       console.error(` ##### selectEmail DB error ##### \n ${err}`)
@@ -50,17 +50,17 @@ exports.selectUserEmail = async (email) => {
   }
 }
 
-exports.selectUser = async (email, password) => {
+exports.selectUser = async function (email, password) {
   // DB 연결 검사
   try {
     const connection = await pool.getConnection(async (conn) => conn)
 
-    // insert query
+    // insert execute
     try {
-      const selectUserQuery = 'select * from Users where email = ? and password = ?;'
+      const selectUserexecute = 'select * from Users where email = ? and password = ?;'
       const selectUserParams = [email, password]
 
-      const [row] = await connection.query(selectUserQuery, selectUserParams)
+      const [row] = await connection.execute(selectUserexecute, selectUserParams)
       return row
     } catch (err) {
       console.error(` ##### selectUser DB error ##### \n ${err}`)
@@ -75,17 +75,17 @@ exports.selectUser = async (email, password) => {
   }
 }
 
-exports.selectNickname = async (userIdx) => {
+exports.selectNickname = async function (userIdx) {
   // DB 연결 검사
   try {
     const connection = await pool.getConnection(async (conn) => conn)
 
-    // insert query
+    // insert execute
     try {
-      const selectNicknameQuery = 'select * from Users where userIdx = ?;'
+      const selectNicknameexecute = 'select * from Users where userIdx = ?;'
       const selectNicknameParams = [userIdx]
 
-      const [row] = await connection.query(selectNicknameQuery, selectNicknameParams)
+      const [row] = await connection.execute(selectNicknameexecute, selectNicknameParams)
       return row
     } catch (err) {
       console.error(` ##### selectNickname DB error ##### \n ${err}`)

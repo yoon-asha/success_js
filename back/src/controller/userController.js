@@ -85,7 +85,7 @@ exports.signin = async (req, res) => {
     })
   }
 
-  console.log('email', email, password)
+  console.log('>>> email', email, password)
 
   // 회원 여부 검사
   try {
