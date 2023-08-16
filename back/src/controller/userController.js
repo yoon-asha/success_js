@@ -106,10 +106,7 @@ exports.signin = async (req, res) => {
   const [userInfo] = isValidUser
   const userIdx = userInfo.userIdx
 
-  const token = jwt.sign(
-    { userIdx: userIdx }, // 페이로드,
-    jwtSecret // 시크릿 키
-  )
+  const token = jwt.sign({ userIdx }, jwtSecret)
 
   return res.send({
     result: { token: token },

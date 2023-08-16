@@ -27,11 +27,9 @@ async function signin() {
       password,
     },
   }
-  console.log(email, password, config)
 
   try {
     const res = await axios(config)
-    console.log('res  ', res)
 
     if (res.data.code !== 200) {
       alert(res.data.message)
@@ -40,10 +38,9 @@ async function signin() {
     }
 
     if (res.data.code === 200) {
-      console.log(res)
       localStorage.setItem('x-access-token', res.data.result.token)
-      alert(res.data.message, res.data.result.token)
-      // location.href = 'index.html'
+      alert(res.data.message)
+      location.href = 'index.html'
       return true
     }
   } catch (err) {
