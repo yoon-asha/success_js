@@ -33,6 +33,7 @@ async function signin() {
 
     if (res.data.code !== 200) {
       alert(res.data.message)
+      location.reload()
       return false
     }
 
