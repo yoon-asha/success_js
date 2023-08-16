@@ -108,19 +108,21 @@ exports.signin = async (req, res) => {
     console.error('회원 검사 에러 ', err)
   }
 
-  // // jwt 토큰 발급
-  // const [userInfo] = isValidUser
-  // const token = jwt.sign(
-  //   { userIdx: userInfo.userIdx }, // 페이로드
-  //   jwtSecret // 시크릿 키
-  // )
+  // jwt 토큰 발급
+  const [userInfo] = isValidUser
+  console.log('userIndo???', userInfo)
 
-  // return res.send({
-  //   result: { token },
-  //   isSuccess: true,
-  //   code: 200,
-  //   message: '로그인 성공',
-  // })
+  const token = jwt.sign(
+    { userIdx: userInfo.userIdx }, // 페이로드
+    jwtSecret // 시크릿 키
+  )
+
+  return res.send({
+    result: { token },
+    isSuccess: true,
+    code: 200,
+    message: '로그인 성공',
+  })
 }
 
 exports.getNickname = async (req, res) => {

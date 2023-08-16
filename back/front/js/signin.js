@@ -34,8 +34,10 @@ async function signin() {
     console.log('res  ', res)
 
     if (res.data.code !== 200) {
-      alert(res.data.message)
-      location.reload()
+      // alert(res.data.message)
+      console.log(res.data.message)
+
+      // location.reload()
       return false
     }
 
