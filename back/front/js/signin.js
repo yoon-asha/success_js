@@ -30,8 +30,6 @@ async function signin() {
 
   try {
     const res = await axios(config)
-    console.log('res', config, res)
-    console.log('>>>>>??? ', axios(config))
 
     if (res.data.code !== 200) {
       alert(res.data.message)

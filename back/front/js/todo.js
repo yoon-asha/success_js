@@ -120,7 +120,6 @@ async function createTodo(event, token) {
 
   try {
     const res = await axios(config)
-    console.log(res)
 
     if (res.data.code !== 200) {
       alert(res.data.message)

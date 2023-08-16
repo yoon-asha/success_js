@@ -29,7 +29,6 @@ exports.selectUserEmail = async (email) => {
   // DB 연결 검사
   try {
     const connection = await pool.getConnection(async (conn) => conn)
-    console.log('email', email, 'connection ', connection)
 
     // insert query
     try {

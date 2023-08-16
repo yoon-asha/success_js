@@ -3,8 +3,6 @@ const jwt = require('jsonwebtoken')
 const { jwtSecret } = require('../../secret')
 
 exports.signup = async (req, res) => {
-  console.log(req, res)
-
   const { email, password, nickname } = req.body
 
   if (!email || !password || !nickname) {
@@ -44,7 +42,6 @@ exports.signup = async (req, res) => {
   // 중복 회원 검사
   try {
     const isDuplicate = await userDatabase.selectUserEmail(email)
-    console.log('isDuplicate ', isDuplicate)
 
     if (isDuplicate.length > 0) {
       return res.send({
@@ -60,7 +57,6 @@ exports.signup = async (req, res) => {
   // DB 입력
   try {
     const insertUser = await userDatabase.insertUser(email, password, nickname)
-    console.log('insertUser', insertUser)
 
     if (!insertUser) {
       return res.send({
@@ -80,8 +76,6 @@ exports.signup = async (req, res) => {
 }
 
 exports.signin = async (req, res) => {
-  console.log('>>>>>  ', req, res, req.body)
-
   const { email, password } = req.body
   if (!email || !password) {
     return res.send({
