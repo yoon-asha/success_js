@@ -77,48 +77,42 @@ exports.signup = async (req, res) => {
 
 exports.signin = async (req, res) => {
   const { email, password } = req.body
+
   if (!email || !password) {
     return res.send({
       isSuccess: false,
       code: 400,
-      message: '회원 정보를 입력해 주세요.',
+      message: '회원정보를 입력해주세요.',
     })
   }
 
-  // 회원 여부 검사
-  try {
-    const isValidUser = await userDatabase.selectUser(email, password)
-    if (!isValidUser) {
-      return res.send({
-        isSuccess: false,
-        code: 400,
-        message: 'DB 에러. 관리자에게 문의해 주세요.',
-      })
-    }
-
-    if (isValidUser.length < 1) {
-      console.log(isValidUser, email, password)
-      return res.send({
-        isSuccess: false,
-        code: 400,
-        message: `${(isValidUser, email, password)} : 존재하지 않는 회원입니다.`,
-      })
-    }
-  } catch (err) {
-    console.error('회원 검사 에러 ', err)
+  // 회원여부 검사
+  const isValidUser = await userDao.selectUser(email, password)
+  if (!isValidUser) {
+    return res.send({
+      isSuccess: false,
+      code: 410,
+      message: 'DB 에러, 담당자에게 문의해주세요.',
+    })
   }
-
+  if (isValidUser.length < 1) {
+    return res.send({
+      isSuccess: false,
+      code: 400,
+      message: '존재하지 않는 회원입니다..',
+    })
+  }
   // jwt 토큰 발급
   const [userInfo] = isValidUser
-  console.log('userIndo???', userInfo)
+  const userIdx = userInfo.userIdx
 
   const token = jwt.sign(
-    { userIdx: userInfo.userIdx }, // 페이로드
+    { userIdx: userIdx }, // 페이로드,
     jwtSecret // 시크릿 키
   )
 
   return res.send({
-    result: { token },
+    result: { token: token },
     isSuccess: true,
     code: 200,
     message: '로그인 성공',
