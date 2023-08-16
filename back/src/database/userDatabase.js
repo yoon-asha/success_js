@@ -32,7 +32,7 @@ exports.selectUserEmail = async function (email) {
 
     // insert execute
     try {
-      const selectEmailexecute = 'select * from Users where email = ?;'
+      const selectEmailexecute = 'select * from Users where email = ?'
       const selectEmailParams = [email]
 
       const [row] = await connection.execute(selectEmailexecute, selectEmailParams)
@@ -57,7 +57,7 @@ exports.selectUser = async function (email, password) {
 
     // insert execute
     try {
-      const selectUserexecute = 'select * from Users where email = ? and password = ?;'
+      const selectUserexecute = 'select * from Users where email = ? and password = ?'
       const selectUserParams = [email, password]
 
       const [row] = await connection.execute(selectUserexecute, selectUserParams)
