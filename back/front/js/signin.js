@@ -27,8 +27,11 @@ async function signin() {
       password,
     },
   }
+  console.log(email, password, config)
 
   try {
+    console.log(email, password, config, await axios(config))
+
     const res = await axios(config)
 
     if (res.data.code !== 200) {

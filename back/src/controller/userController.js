@@ -77,6 +77,7 @@ exports.signup = async (req, res) => {
 
 exports.signin = async (req, res) => {
   const { email, password } = req.body
+
   if (!email || !password) {
     return res.send({
       isSuccess: false,
@@ -85,13 +86,11 @@ exports.signin = async (req, res) => {
     })
   }
 
-  console.log('>>> email', email, password)
-
   // 회원 여부 검사
   try {
     const isValidUser = await userDatabase.selectUser(email, password)
-    console.log('isValidUser', isValidUser)
 
+    console.log(email, password, isValidUser)
     if (!isValidUser) {
       return res.send({
         isSuccess: false,
@@ -101,31 +100,28 @@ exports.signin = async (req, res) => {
     }
 
     if (isValidUser.length < 1) {
-      console.log(isValidUser)
-
-      return res.send({
-        isSuccess: false,
-        code: 400,
-        message: '존재하지 않는 회원입니다.',
-      })
+      // return res.send({
+      //   isSuccess: false,
+      //   code: 400,
+      //   message: '존재하지 않는 회원입니다.',
+      // })
+      console.log('존재하지 않는 회원')
     }
+
+    // jwt 토큰 발급
+    const userIdx = isValidUser
+    console.log(isValidUser, userInfo)
+    const token = jwt.sign({ userIdx }, jwtSecret)
+
+    return res.send({
+      result: { token },
+      isSuccess: true,
+      code: 200,
+      message: '로그인 성공',
+    })
   } catch (err) {
     console.error('회원 검사 에러 ', err)
   }
-
-  // jwt 토큰 발급
-  const [userInfo] = isValidUser
-  const token = jwt.sign(
-    { userIdx: userInfo.userIdx }, // 페이로드
-    jwtSecret // 시크릿 키
-  )
-
-  return res.send({
-    result: { token },
-    isSuccess: true,
-    code: 200,
-    message: '로그인 성공',
-  })
 }
 
 exports.getNickname = async (req, res) => {
